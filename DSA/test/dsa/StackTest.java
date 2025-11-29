@@ -86,7 +86,7 @@ public class StackTest {
     public void testPeek_lastElementInTheStack(){
         assertTrue(strings.isEmpty());
         strings.push("myElement");
-        assertEquals(strings.peek(), "myElement");
+        assertEquals("myElement", strings.peek());
     }
     @Test
     public void testAddXY_peekReturnsY(){
@@ -94,7 +94,7 @@ public class StackTest {
         strings.push("myElement");
         strings.push("secondElement");
 
-        assertEquals(strings.peek(), "secondElement");
+        assertEquals("secondElement",  strings.peek());
     }
 
 
