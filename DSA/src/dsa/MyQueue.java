@@ -1,8 +1,8 @@
 package dsa;
 
 public class MyQueue {
-    int count = 0;
-    String[] elements = new String[5];
+  private  int count = 0;
+    private String[] elements = new String[5];
 
 
     public boolean isEmpty() {

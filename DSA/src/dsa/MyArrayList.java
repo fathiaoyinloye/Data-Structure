@@ -3,7 +3,7 @@ package dsa;
 public class MyArrayList {
     private int count =  0;
     private String[] elements;
-    private int myArrayListSize = 30;
+    private int myArrayListSize = 20;
 
     public MyArrayList() {
         elements = new String[myArrayListSize];
@@ -68,6 +68,7 @@ public class MyArrayList {
     }
     public void add(int index, String element) {
         count++;
+        changeSize();
         for(int check = index; check < count; check++) {
             for (int counter = check + 1; counter < count; counter++) {
                 String temp = elements[check];
