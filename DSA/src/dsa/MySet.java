@@ -75,6 +75,8 @@ public class MySet {
             }
             elements = newElements;
         }
-
+    }
+    public String[] quickCheck(){
+        return elements;
     }
 }
