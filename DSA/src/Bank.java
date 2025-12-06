@@ -34,8 +34,7 @@ public class Bank {
 //        receiver.deposit(amount);
 //    }
 
-    public void transfer(String senderAccountNumber, String receiverAccountNumber, int amount, String password){
-        findAccount(senderAccountNumber).withdraw(amount, password);
+    public void transfer(String senderAccountNumber, String receiverAccountNumber, int amount, String password){ount(senderAccountNumber).withdraw(amount, password);
         findAccount(receiverAccountNumber).deposit(amount);
 
     }
