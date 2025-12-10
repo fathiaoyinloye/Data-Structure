@@ -1,6 +1,6 @@
 package test;
 
-import algorithims.LinearRegression;
+import algorithms.LinearRegression;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

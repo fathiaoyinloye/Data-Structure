@@ -9,7 +9,7 @@ import java.util.Scanner;
 import static java.lang.IO.print;
 
 public class FidelityBankMain {
-    static Bank bank = new Bank();
+    static Bank bank = new Bank("fidelity");
     static Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
         menuStart();

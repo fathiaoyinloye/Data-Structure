@@ -1,4 +1,4 @@
-package algorithims;
+package algorithms;
 import java.util.Arrays;
 
 public class LinearRegression {

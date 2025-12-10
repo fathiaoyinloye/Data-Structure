@@ -4,10 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Bank {
+    private int noOfBanks = 0;
+    private String name;
     private int accountNumber = 1;
     private List<Account> accounts = new ArrayList<>();
 
-
+    public Bank(String name){
+        this.name = name;
+    }
     public int getSize() {
         return accounts.size();
     }

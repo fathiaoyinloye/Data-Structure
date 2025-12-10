@@ -12,12 +12,12 @@ public class BankTest {
 
     @BeforeEach
     void setup() {
-        fidelityBank = new Bank();
+        fidelityBank = new Bank("fidelity");
     }
 
     @Test
     public void testThatBankAsNoAccount() {
-        Bank fidelityBank = new Bank();
+        Bank fidelityBank = new Bank("fidelity");
         assertEquals(0, fidelityBank.getSize());
     }
 
