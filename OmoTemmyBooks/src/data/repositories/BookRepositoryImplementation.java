@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookRepositoryImplementation implements BookRepository {
-    private static List <Book> books = new ArrayList<>();
+    private  List <Book> books = new ArrayList<>();
     private int count;
 
     @Override
@@ -17,7 +17,7 @@ public class BookRepositoryImplementation implements BookRepository {
     }
 
 
-    /*@Override
+    @Override
     public Book save(Book book) {
         boolean isThere = false;
         for(Book bookCheck : books){
@@ -32,18 +32,19 @@ public class BookRepositoryImplementation implements BookRepository {
             books.add(book);
         }
         return book;
-    }*/
-    @Override
-  public Book save(Book book){
-        if(isNew(book)) saveNew(book);
-        else updateBook(book);
-
-        return book;
-         }
+    }
+  //  @Override
+//  public Book save(Book book){
+//        if(isNew(book)) saveNew(book);
+//        else updateBook(book);
+//
+//        return book;
+//         }
 
    public void saveNew(Book book){
             count++;
-        books.add(book);
+            book.setId(count);
+            books.add(book);\
     }
 
 
@@ -84,8 +85,8 @@ public class BookRepositoryImplementation implements BookRepository {
     }
 
     public void deleteById(int id) {
-        for (Book book : books) {
-            if (book.getId() == id) books.remove(book);
-        }
+        Book book = findById(id);
+        books.remove(book);
+
     }
 }

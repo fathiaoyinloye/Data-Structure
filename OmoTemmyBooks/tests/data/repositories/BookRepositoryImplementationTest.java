@@ -17,9 +17,8 @@ class BookRepositoryImplementationTest {
         }
 
         @Test
-        public void testThatBookRepoitoryIncreaeses() {
-            System.out.println(bookRepository.count());
-           assertEquals(3, bookRepository.count());
+        public void testThatBookRepoitoryIsEmpty() {
+            assertEquals(0, bookRepository.count());
         }
 
         @Test
@@ -31,24 +30,24 @@ class BookRepositoryImplementationTest {
 
         @Test
         public void bookAIsSavedInTheBookRepository_countIOne_saveReturnBookSaved() {
-            assertEquals(1, bookRepository.count());
+            assertEquals(0, bookRepository.count());
             bookRepository.save(new Book());
-            assertEquals(2, bookRepository.count());
+            assertEquals(1, bookRepository.count());
             assertNotNull(bookRepository.save(new Book()));
         }
 
         @Test
         public void bookAandBIsSavedInTheBookRepository_countIsTwo_bookIsDeleted_countIsZero() {
-            assertEquals(3, bookRepository.count());
+            assertEquals(0, bookRepository.count());
             Book firstBook = new Book();
 
             bookRepository.save(firstBook);
-            assertEquals(4, bookRepository.count());
+            assertEquals(1, bookRepository.count());
             bookRepository.delete(firstBook);
-            assertEquals(3, bookRepository.count());
+            assertEquals(0, bookRepository.count());
         }
 
-       /* @Test
+        @Test
         public void bookIsSaved_bookIsFoundInTheBookRepository_countIsOne() {
             assertEquals(0, bookRepository.count());
             Book firstBook = new Book();
@@ -56,8 +55,8 @@ class BookRepositoryImplementationTest {
             assertEquals(firstBook, bookRepository.findById(1));
         }
 
-        @Test
-        public void bookAandBSaved_findBookCById_throwsException() {
+       @Test
+        public void bookAandBSaved_findBookCById_returnNull() {
             assertEquals(0, bookRepository.count());
             Book firstBook = new Book();
             assertEquals(firstBook, bookRepository.save(firstBook));
@@ -96,7 +95,16 @@ class BookRepositoryImplementationTest {
             assertEquals(firstBook, bookRepository.findById(1));
             assertEquals("366",  firstBook.getIsbn());
 
-        }*/
+        }
+        @Test
+        public void saveBook_countIsOne_deleteById_countIsZero() {
+            assertEquals(0, bookRepository.count());
+            Book firstBook = new Book();
+            assertEquals(firstBook, bookRepository.save(firstBook));
+            assertEquals(1, bookRepository.count());
+            bookRepository.deleteById(1);
+            assertEquals(0, bookRepository.count());
+        }
 
     }
 
