@@ -37,7 +37,7 @@ class BookRepositoryImplementationTest {
         }
 
         @Test
-        public void bookAandBIsSavedInTheBookRepository_countIsTwo_bookIsDeleted_countIsZero() {
+        public void bookAIsSavedInTheBookRepository_countIsTwo_bookIsDeleted_countIsZero() {
             assertEquals(0, bookRepository.count());
             Book firstBook = new Book();
 
@@ -105,6 +105,7 @@ class BookRepositoryImplementationTest {
             bookRepository.deleteById(1);
             assertEquals(0, bookRepository.count());
         }
+
 
     }
 

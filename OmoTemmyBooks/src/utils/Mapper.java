@@ -14,6 +14,7 @@ public class Mapper {
         book.setDescription(addBookRequest.getDescription());
         book.setQuantity(addBookRequest.getQuantity());
         book.setPages(addBookRequest.getPages());
+        book.setTitle(addBookRequest.getTitle());
         return book;
     }
     public static AddBookResponse mapBookResponse(Book book) {

@@ -12,4 +12,6 @@ public interface BookRepository {
 
 
    public boolean existById(int i);
+
+   public void deleteById(int id);
 }

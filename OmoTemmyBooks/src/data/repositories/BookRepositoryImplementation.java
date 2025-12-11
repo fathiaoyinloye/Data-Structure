@@ -17,8 +17,8 @@ public class BookRepositoryImplementation implements BookRepository {
     }
 
 
-    @Override
-    public Book save(Book book) {
+    //@Override
+   /* public Book save(Book book) {
         boolean isThere = false;
         for(Book bookCheck : books){
             if(bookCheck.getId() == book.getId()){
@@ -32,19 +32,19 @@ public class BookRepositoryImplementation implements BookRepository {
             books.add(book);
         }
         return book;
-    }
-  //  @Override
-//  public Book save(Book book){
-//        if(isNew(book)) saveNew(book);
-//        else updateBook(book);
-//
-//        return book;
-//         }
+    }*/
+    @Override
+  public Book save(Book book){
+        if(isNew(book)) saveNew(book);
+        else updateBook(book);
+
+        return book;
+         }
 
    public void saveNew(Book book){
             count++;
             book.setId(count);
-            books.add(book);\
+            books.add(book);
     }
 
 
@@ -54,7 +54,6 @@ public class BookRepositoryImplementation implements BookRepository {
 
     private void updateBook(Book book) {
         deleteById(book.getId());
-        save(book);
         books.add(book);
     }
 

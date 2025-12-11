@@ -14,8 +14,8 @@ public class BookServicesImpl implements BookService {
     private BookRepository bookRepository;
 
 
-    public BookServicesImpl(BookRepository bookRepository) {
-        this.bookRepository = bookRepository;
+    public BookServicesImpl(BookRepository bookRepositoryImplementation) {
+        this.bookRepository = bookRepositoryImplementation;
     }
 
     @Override
@@ -24,7 +24,11 @@ public class BookServicesImpl implements BookService {
         bookRepository.save(book);
         return mapBookResponse(book);
     }
-
+   /* private void validate(AddBookRequest addBookRequest) {
+        Book book = mapBookRequest(addBookRequest);
+        for(Book bookSaved: bookRepository)
+        if (book.getTitle().equals(bookSaved.getTitle()))
+    }*/
 
 
 
