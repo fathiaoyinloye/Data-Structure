@@ -1,7 +1,6 @@
 package data.repositories;
 
 import data.models.Book;
-import exceptions.BookExceptions.InvalidIdException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +32,11 @@ public class BookRepositoryImplementation implements BookRepository {
         }
         return book;
     }*/
+    @Override
+    public List<Book> findAll() {
+        return books;
+    }
+
     @Override
   public Book save(Book book){
         if(isNew(book)) saveNew(book);

@@ -1,7 +1,6 @@
 package data.repositories;
 
 import data.models.Book;
-import exceptions.BookExceptions.InvalidIdException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

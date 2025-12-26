@@ -1,17 +1,22 @@
 package data.repositories;
 import data.models.Book;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public interface BookRepository {
-    public Long count();
+     Long count();
 
-    public Book save(Book book);
+     Book save(Book book);
 
-    public void delete(Book book);
+     void delete(Book book);
 
-    public Book findById(int id);
+     Book findById(int id);
 
 
-   public boolean existById(int i);
+    boolean existById(int i);
 
-   public void deleteById(int id);
+    void deleteById(int id);
+    List<Book> findAll();
+
 }

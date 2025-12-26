@@ -1,5 +1,4 @@
-package algorithms;
-import java.util.Arrays;
+package algorithims;
 
 public class LinearRegression {
     int numberOfDatapoint;

@@ -1,12 +1,26 @@
 package data.models;
 
+import java.util.Date;
+
 public class BookBorrowed {
     private int id;
     private int userId;
     private int bookId;
-    private String borrowDate;
-    private String returnDate;
+    private int borrowedBookId;
+    private Date borrowDate;
+    private Date returnDate;
     private boolean isReturned;
+
+
+    public int getBorrowedBookId() {
+        return borrowedBookId;
+    }
+
+    public void setBorrowedBookId(int borrowedBookId) {
+        this.borrowedBookId = borrowedBookId;
+    }
+
+
 
     public int getId() {
         return id;
@@ -32,19 +46,19 @@ public class BookBorrowed {
         this.bookId = bookId;
     }
 
-    public String getBorrowDate() {
+    public Date getBorrowDate() {
         return borrowDate;
     }
 
-    public void setBorrowDate(String borrowDate) {
+    public void setBorrowDate(Date borrowDate) {
         this.borrowDate = borrowDate;
     }
 
-    public String getReturnDate() {
+    public Date getReturnDate() {
         return returnDate;
     }
 
-    public void setReturnDate(String returnDate) {
+    public void setReturnDate(Date returnDate) {
         this.returnDate = returnDate;
     }
 
