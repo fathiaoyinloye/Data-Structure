@@ -1,4 +1,5 @@
 
+import BankException.InsufficientFundException;
 import bankAccount.Account;
 import bankAccount.Bank;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,12 +13,12 @@ public class BankTest {
 
     @BeforeEach
     void setup() {
-        fidelityBank = new Bank("fidelity");
+        fidelityBank = new Bank("fidelity bank");
     }
 
     @Test
     public void testThatBankAsNoAccount() {
-        Bank fidelityBank = new Bank("fidelity");
+        Bank fidelityBank = new Bank("fidelity bank");
         assertEquals(0, fidelityBank.getSize());
     }
 
@@ -41,7 +42,7 @@ public class BankTest {
     public void createAccount_accountNumberIsKnown() {
         assertEquals(0, fidelityBank.getSize());
         Account account = fidelityBank.createAccount("fathia", "1");
-        assertEquals("1", account.getAccountNumber());
+        assertEquals("0001234515", account.getAccountNumber());
         assertEquals(1, fidelityBank.getSize());
     }
 
@@ -50,9 +51,9 @@ public class BankTest {
     public void createAccountX_Deposit5h_balaance5h() {
         assertEquals(0, fidelityBank.getSize());
         Account account = fidelityBank.createAccount("fathia", "1");
-        assertEquals("1", account.getAccountNumber());
+        assertNotNull( account.getAccountNumber());
         assertEquals(1, fidelityBank.getSize());
-        fidelityBank.deposit("1", 500);
+        fidelityBank.deposit("0001234515", 500);
        assertEquals(500, account.getBalance("1"));
     }
 
@@ -60,11 +61,11 @@ public class BankTest {
     public void createAccount_Deposit5h_withdraw3h_balance2h() {
         assertEquals(0, fidelityBank.getSize());
         Account account = fidelityBank.createAccount("fathia", "1");
-        assertEquals("1", account.getAccountNumber());
+        assertEquals("0001234515", account.getAccountNumber());
         assertEquals(1, fidelityBank.getSize());
-        fidelityBank.deposit("1", 500);
+        fidelityBank.deposit("0001234515", 500);
         assertEquals(500, account.getBalance("1"));
-        fidelityBank.withdraw("1", 200, "1");
+        fidelityBank.withdraw("0001234515", 200, "1");
         assertEquals(300, account.getBalance("1"));
 
     }
@@ -76,17 +77,27 @@ public class BankTest {
             Account account = fidelityBank.createAccount("fathia", "1");
             Account account2 = fidelityBank.createAccount("Tobi", "123");
             assertEquals(2, fidelityBank.getSize());
-            fidelityBank.deposit("1", 500);
+            assertEquals("0001234522", account2.getAccountNumber());
+            fidelityBank.deposit("0001234515", 500);
             assertEquals(500, account.getBalance("1"));
-            fidelityBank.transfer("1", "2", 300, "1" );
+            fidelityBank.transfer("0001234515", "0001234522", 300, "1" );
             assertEquals(200, account.getBalance("1"));
-
-
-
 
         }
 
-
+    @Test
+    public void createAccountXY_XDeposited5h_Xtransfered6htoY_throwsInsufficientFundException_XbalanceIs5h(){
+        assertEquals(0, fidelityBank.getSize());
+        Account account = fidelityBank.createAccount("fathia", "1");
+        Account account2 = fidelityBank.createAccount("Tobi", "123");
+        assertEquals(2, fidelityBank.getSize());
+        fidelityBank.deposit("0001234515", 500);
+        assertEquals(500, account.getBalance("1"));
+        assertEquals("0001234522", account2.getAccountNumber());
+        assertEquals(500, account.getBalance("1"));
+        assertThrows(InsufficientFundException.class, ()-> fidelityBank.transfer("0001234515", "0001234522", 600, "1" ));
+        assertEquals(500, account.getBalance("1"));
+    }
 
 
 

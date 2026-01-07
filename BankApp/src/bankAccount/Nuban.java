@@ -1,5 +1,6 @@
 package bankAccount;
 
+import BankException.InvalidAccountNumberException;
 import BankException.InvalidBankException;
 import BankException.InvalidSerialNumberException;
 
@@ -32,28 +33,35 @@ public class Nuban {
         }
 
     }
-    public static String checkBankThreeDigitCode(String bankName) {
-        convertToHashMap();
-        String bankCode = banksAndCodes.get(bankName) ;
-        if (bankCode == null) throw new InvalidBankException();
-        return bankCode;
+    public static String getBankCode(String bankName) {
+        validateBank(bankName);
+        return banksAndCodes.get(convertToLowerCase(bankName));
     }
+
 
     public static String convertToLowerCase(String word){
         return word.toLowerCase();
     }
 
+    public static void validateBank(String bankName){
+        convertToHashMap();
+        String bankCode = banksAndCodes.get(convertToLowerCase(bankName)) ;
+        if (bankCode == null) throw new InvalidBankException();
+
+    }
+    
 
     public static int calNubanLastDigitCode(String serialNumber, String bank){
         validateSerialNumber(serialNumber);
-        String codePlusSerialNumber = checkBankThreeDigitCode(bank) + serialNumber;
+        String codePlusSerialNumber = getBankCode(bank) + serialNumber;
         int[] numbers = {3, 7, 3};
         int total = 0;
         int counter = 0;
         int digit = 0;
         for(int count = 0; count < codePlusSerialNumber.length(); count++){
             if(counter == 3) counter = 0;
-            total += codePlusSerialNumber.charAt(count) - '0' * numbers[counter];
+            total += (codePlusSerialNumber.charAt(count) - '0') * numbers[counter];
+
             counter ++;
         }
         total = total % 10;
@@ -66,5 +74,10 @@ public class Nuban {
   private static void validateSerialNumber(String serialNumber) {
         if (serialNumber.length() != 9) throw new InvalidSerialNumberException();
   }
-
+public static boolean isValidaNubanCheckNumber(String accountNumber,String bankName){
+        if(accountNumber.length() != 10) throw  new InvalidAccountNumberException();
+        String serialNumber = accountNumber.substring(0,9);
+        int checkDigit = calNubanLastDigitCode(serialNumber, bankName);
+    return checkDigit == accountNumber.charAt(9) - '0';
+}
 }
