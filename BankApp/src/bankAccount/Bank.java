@@ -7,15 +7,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Bank {
-    private int noOfBanks = 0;
     private String name;
     private String code;
-    private int accountNumber = 1;
+    private int accountNumber;
+    private int bvnNo;
+    private int credit;
     private HashMap<String, Account> accounts = new HashMap<>();
 
     public Bank(String name){
-    Nuban.validateBank(name);
-    setCode(Nuban.getBankCode(name));
+        Nuban.validateBank(name);
+        setCode(Nuban.getBankCode(name));
         this.name = name;
     }
     public int getSize() {
@@ -39,32 +40,31 @@ public class Bank {
     }
 
     private String generateSerialNumber(){
-        if(accountNumber < 10) return "00012345" + accountNumber++;
-
-        return "0001234" + accountNumber++;
+        if(accountNumber < 10) return "00012345" + ++accountNumber;
+        return "0001234" + ++accountNumber;
     }
 
 
     private String generateAccountNumber(){
-      String serialNumber =  generateSerialNumber();
+        String serialNumber =  generateSerialNumber();
         int nubanCheck = Nuban.calNubanLastDigitCode( serialNumber , name);
         return serialNumber + nubanCheck;
     }
     private String generateBvn(){
-        if(accountNumber < 10) return "4345235678" + accountNumber++;
+        if(accountNumber < 10) return "4345235678" + ++bvnNo;
 
-        return "434523567" + accountNumber++;
+        return "434523567" + ++bvnNo;
     }
 
     private String generateMasterCard(){
-        String fifteenDigit = "5135272517384" + accountNumber;
+        String fifteenDigit = "5135272517384" + credit++;
         if(accountNumber < 10) fifteenDigit = "51352725173847" + accountNumber;
         return fifteenDigit + CreditCardValidator.getCreditCardCheckDigit(fifteenDigit);
     }
 
     private String generateVisaCard(){
-        String fifteenDigit = "4135272517384" + accountNumber;
-        if(accountNumber < 10) fifteenDigit = "41352725173847" + accountNumber;
+        String fifteenDigit = "4135272517384" + ++credit;
+        if(accountNumber < 10) fifteenDigit = "41352725173847" + ++credit;
         return fifteenDigit + CreditCardValidator.getCreditCardCheckDigit(fifteenDigit);
     }
     public  Account findAccount(String accountNumber) {
@@ -115,12 +115,12 @@ public class Bank {
         Account account = findAccount(accountNumber);
         String cardNumber = "";
         switch (Nuban.convertToLowerCase(creditCardType)){
-            case "master card" ->{
+            case "master" ->{
                 cardNumber = generateMasterCard();
                 account.setCardNumber(cardNumber);
                 account.setGotACard(true);
                 return cardNumber;}
-            case "visa card" -> {
+            case "visa" -> {
                 cardNumber = generateVisaCard();
                 account.setCardNumber(cardNumber);
                 account.setGotACard(true);
@@ -130,11 +130,6 @@ public class Bank {
             }
 
         }
-    }
-
-
-    public void transferWithCreditCard(){
-        //if(!g) throw new InvalidMethodOfPaymentException();
     }
 
 
