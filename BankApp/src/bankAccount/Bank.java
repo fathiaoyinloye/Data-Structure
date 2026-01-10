@@ -1,6 +1,10 @@
 package bankAccount;
 
+import BankException.InvalidAccountNumberException;
+import BankException.InvalidCardNUmberException;
+
 import java.util.HashMap;
+import java.util.Map;
 
 public class Bank {
     private int noOfBanks = 0;
@@ -19,6 +23,7 @@ public class Bank {
     }
     public Account createAccount(String firstName, String password) {
         Account account = new Account(firstName, password);
+        account.setBvn(generateBvn());
         account.setAccountNumber(generateAccountNumber());
         accounts.put(account.getAccountNumber(), account);
         return account;
@@ -45,9 +50,36 @@ public class Bank {
         int nubanCheck = Nuban.calNubanLastDigitCode( serialNumber , name);
         return serialNumber + nubanCheck;
     }
+    private String generateBvn(){
+        if(accountNumber < 10) return "4345235678" + accountNumber++;
 
+        return "434523567" + accountNumber++;
+    }
 
-    public  Account findAccount(String accountNumber) {return accounts.get(accountNumber);}
+    private String generateMasterCard(){
+        String fifteenDigit = "5135272517384" + accountNumber;
+        if(accountNumber < 10) fifteenDigit = "51352725173847" + accountNumber;
+        return fifteenDigit + CreditCardValidator.getCreditCardCheckDigit(fifteenDigit);
+    }
+
+    private String generateVisaCard(){
+        String fifteenDigit = "4135272517384" + accountNumber;
+        if(accountNumber < 10) fifteenDigit = "41352725173847" + accountNumber;
+        return fifteenDigit + CreditCardValidator.getCreditCardCheckDigit(fifteenDigit);
+    }
+    public  Account findAccount(String accountNumber) {
+        Account account = accounts.get(accountNumber);
+        if(account == null) throw new InvalidAccountNumberException();
+        return account;
+    }
+
+    private Account findAccountWithCreditCardNumber(String  creditCardNumber){
+        for(Map.Entry<String,Account> getAccount:accounts.entrySet()){
+            if(getAccount.getValue().getCardNumber().equals(creditCardNumber)) return getAccount.getValue();
+        }
+        throw new InvalidCardNUmberException();
+
+    }
     public void deposit(String accountNumber, int amount){
         findAccount(accountNumber).deposit(amount);
     }
@@ -57,6 +89,12 @@ public class Bank {
         findAccount(receiverAccountNumber).deposit(amount);
 
     }
+    public void transferWithCreditCard(String senderCreditCardNumber, String receiverAccountNumber, int amount, String password){findAccountWithCreditCardNumber(senderCreditCardNumber).withdraw(amount, password);
+        findAccount(receiverAccountNumber).deposit(amount);
+
+    }
+
+
     public void withdraw(String accountNumber, int amount, String password){
         findAccount(accountNumber).withdraw(amount, password);
     }
@@ -73,6 +111,33 @@ public class Bank {
     public HashMap<String, Account> getAccounts() {
         return accounts;
     }
+    public String issueCreditCard(String creditCardType, String accountNumber){
+        Account account = findAccount(accountNumber);
+        String cardNumber = "";
+        switch (Nuban.convertToLowerCase(creditCardType)){
+            case "master card" ->{
+                cardNumber = generateMasterCard();
+                account.setCardNumber(cardNumber);
+                account.setGotACard(true);
+                return cardNumber;}
+            case "visa card" -> {
+                cardNumber = generateVisaCard();
+                account.setCardNumber(cardNumber);
+                account.setGotACard(true);
+                return cardNumber;}
+            default -> {
+                throw new InvalidCardTypeException();
+            }
+
+        }
+    }
+
+
+    public void transferWithCreditCard(){
+        //if(!g) throw new InvalidMethodOfPaymentException();
+    }
+
+
 
 
 }

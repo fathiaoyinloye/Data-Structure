@@ -75,10 +75,13 @@ public class CBNTest {
         Bank uba = cbn.addBank("uba");
         assertEquals(2, cbn.getBankSize());
         Account fathiaAccount = fidelity.createAccount("fathia", "1");
+        Account omotemmyAccount = uba.createAccount("omotemmy", "2");
         assertEquals(1, fidelity.getAccounts().size());
         fathiaAccount.deposit(500);
         assertEquals(500, fathiaAccount.getBalance("1"));
-        cbn.interBankTransfer("uba","fidelity bank", "1", );
+        cbn.interBankTransfer("uba","fidelity bank", "0001234514", "0001234515", 300, "1");
+        assertEquals(200, fathiaAccount.getBalance("1"));
+        assertEquals(300, omotemmyAccount.getBalance("2"));
 
     }
 

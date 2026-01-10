@@ -3,6 +3,7 @@ package bankAccount;
 import BankException.IncorrectPassword;
 import BankException.InsufficientFundException;
 import BankException.InvalidAmountException;
+import BankException.InvalidMethodOfPaymentException;
 
 public class Account {
 
@@ -10,8 +11,17 @@ public class Account {
     private String password;
     private String accountNumber;
     private String name;
+    private String bvn;
+    private boolean gotACard;
+    private String cardNumber;
 
+    public String getBvn() {
+        return bvn;
+    }
 
+    public void setBvn(String bvn) {
+        this.bvn = bvn;
+    }
 
     public void setAccountNumber(String accountNumber) {
         this.accountNumber = accountNumber;
@@ -54,6 +64,19 @@ public class Account {
         return accountNumber;
     }
 
+    public String getCardNumber() {
+        return cardNumber;
+    }
 
+    public void setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
+    }
 
+    public boolean isGotACard() {
+        return gotACard;
+    }
+
+    public void setGotACard(boolean gotACard) {
+        this.gotACard = gotACard;
+    }
 }

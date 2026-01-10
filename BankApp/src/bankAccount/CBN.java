@@ -27,14 +27,10 @@ public class CBN {
         banks.add(bank);
         return bank;
     }
-    public void interBankTransfer(String receiverBankName, String senderBankName, String receiverAccountNumber, int amount, String password, Account senderaccount) {
-       withdrawFromSenderAccount();
-       depositToReceiverAccount();
+    public void interBankTransfer(String receiverBankName, String senderBankName, String receiverAccountNumber, String senderAccountNumber,int amount, String password) {
+       withdrawFromSenderAccount(senderAccountNumber,senderBankName,amount,password);
+       depositToReceiverAccount(receiverAccountNumber,receiverBankName,amount);
 
-
-}
-public void interBankTransfer(Account  receiverAccount, Account senderAccount, int amount){
-        receiverAccount.deposit(amount);
 }
 
 private void withdrawFromSenderAccount(String senderAccountNumber, String senderBankName, int amount, String password){
